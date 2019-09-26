@@ -1,4 +1,6 @@
 <?php 
+$path = preg_replace('/wp-content(?!.*wp-content).*/','',__DIR__);
+include($path.'wp-load.php');
 /**
  * sending the email after client fills in the details.
  *
@@ -13,18 +15,21 @@
  //lets get the form
 
  // Check if the form is submitted 
- if ( isset( $_GET['submit'] ) ) { 
+ if ( isset($_POST) ) { 
 
-    $email = $_GET['email'];
-    $bug = $_GET['bug'];
-    $site = $_GET['site'];
+    $email = $_POST['email'];
+    $bug = $_POST['bug'];
+    $site = $_POST['site'];
     //send email
     $to = 'devteam1@designstudio.com';
     $subject = 'Bug Reported from website ' . $site ;
     $body = 'Bug Report From: ' . $email . ' Message: ' . $bug;
     $headers = array('Content-Type: text/html; charset=UTF-8');
     wp_mail( $to, $subject, $body, $headers );
-
+    
+    
+    echo $email;
+    
 }
 ?>
 
