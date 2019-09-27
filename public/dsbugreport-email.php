@@ -38,7 +38,7 @@ require '../libs/PHPMailer/src/SMTP.php';
         $mail->Username   = 'devteam@designstudio.com';                     // SMTP username
         $mail->Password   = 'G00dbuddy1';                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption, `PHPMailer::ENCRYPTION_SMTPS` also accepted
-        $mail->Port       = 587;                                    // TCP port to connect to
+        $mail->Port       = 465;                                    // TCP port to connect to
     
         //Recipients
         $mail->setFrom('devteam@designstudio.com', 'DS BUG REPORT');
@@ -49,7 +49,6 @@ require '../libs/PHPMailer/src/SMTP.php';
         $mail->Body    = 'Bug Report From: ' . $email . '<br> Message: ' . $bug;
 
         $mail->send();
-        echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
