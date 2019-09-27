@@ -119,6 +119,14 @@ class Dsbugreport_Public {
 			  <label for="input" class="control-label">Your Email</label><i class="bar"></i>
 			</div>
 			<div class="form-group">
+			<select name="bugtype">
+			  <option value="Missing or Wrong Content">Missing or Wrong Content</option>
+			  <option value="Styling">Styling error</option>	 
+			  <option value="Other">Other</option>
+			</select>
+			<label for="select" class="control-label">Bug Type</label><i class="bar"></i>
+		  </div>
+			<div class="form-group">
 			  <textarea name="bug" required="required"></textarea>
 			  <label for="textarea" class="control-label">Please describe the bug</label><i class="bar"></i>
 			</div>

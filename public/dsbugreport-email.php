@@ -23,6 +23,7 @@ require '../libs/PHPMailer/src/SMTP.php';
  if ( isset($_POST) ) { 
 
     $email = $_POST['email'];
+    $bugType = $_POST['bugtype'];
     $bug = $_POST['bug'];
     $site = $_POST['site'];
     //send email
@@ -46,7 +47,7 @@ require '../libs/PHPMailer/src/SMTP.php';
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Bug Reported from website ' . $site;
-        $mail->Body    = 'Bug Report From: ' . $email . '<br> Message: ' . $bug;
+        $mail->Body    = 'Bug Report From: ' . $email . '<br>Bug Report type:'. $bugType. '<br>Message: ' . $bug;
 
         $mail->send();
     } catch (Exception $e) {
