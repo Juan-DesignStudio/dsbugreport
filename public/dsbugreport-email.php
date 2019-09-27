@@ -37,7 +37,7 @@ require '../libs/PHPMailer/src/SMTP.php';
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
         $mail->Username   = 'devteam@designstudio.com';                     // SMTP username
         $mail->Password   = 'G00dbuddy1';                               // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption, `PHPMailer::ENCRYPTION_SMTPS` also accepted
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption, `PHPMailer::ENCRYPTION_SMTPS` also accepted
         $mail->Port       = 465;                                    // TCP port to connect to
     
         //Recipients
