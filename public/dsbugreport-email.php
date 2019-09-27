@@ -1,6 +1,4 @@
 <?php 
-$path = preg_replace('/wp-content(?!.*wp-content).*/','',__DIR__);
-include($path.'wp-load.php');
 /**
  * sending the email after client fills in the details.
  *
@@ -10,6 +8,13 @@ include($path.'wp-load.php');
  * @package    Dsbugreport
  * @subpackage Dsbugreport/public
  */
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../libs/PHPMailer/src/Exception.php';
+require '../libs/PHPMailer/src/PHPMailer.php';
+require '../libs/PHPMailer/src/SMTP.php';
 
 
  //lets get the form
@@ -21,15 +26,34 @@ include($path.'wp-load.php');
     $bug = $_POST['bug'];
     $site = $_POST['site'];
     //send email
-    $to = 'devteam1@designstudio.com';
-    $subject = 'Bug Reported from website ' . $site ;
-    $body = 'Bug Report From: ' . $email . ' Message: ' . $bug;
-    $headers = array('Content-Type: text/html; charset=UTF-8');
-    wp_mail( $to, $subject, $body, $headers );
     
+
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = 0;                                       // Enable verbose debug output
+        $mail->isSMTP();                                            // Set mailer to use SMTP
+        $mail->Host       = 'secure.emailsrvr.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = 'devteam@designstudio.com';                     // SMTP username
+        $mail->Password   = 'G00dbuddy1';                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption, `PHPMailer::ENCRYPTION_SMTPS` also accepted
+        $mail->Port       = 587;                                    // TCP port to connect to
     
-    echo $email;
-    
+        //Recipients
+        $mail->setFrom('devteam@designstudio.com', 'DS BUG REPORT');
+        $mail->addAddress('DevTeam1@designstudio.com', 'DevTeam1');     // Add a recipient
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Bug Reported from website ' . $site;
+        $mail->Body    = 'Bug Report From: ' . $email . '<br> Message: ' . $bug;
+
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+
 }
 ?>
 
